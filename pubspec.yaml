@@ -1,5 +1,5 @@
-name: flutter_application_1
-description: "A new Flutter project."
+name: krabalo
+description: "Krabalo is an exciting and immersive gyroscope-controlled mobile game where players navigate a ball through challenging mazes, avoiding obstacles and enemies, to reach the goal."
 publish_to: 'none'
 version: 0.1.0
 
@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
+  flame: ^1.15.0
   flutter:
     sdk: flutter
 
