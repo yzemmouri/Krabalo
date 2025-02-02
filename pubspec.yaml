@@ -10,6 +10,7 @@ dependencies:
   flame: ^1.15.0
   flutter:
     sdk: flutter
+  sensors_plus: ^4.0.2
 
 dev_dependencies:
   flutter_test:
