@@ -20,7 +20,7 @@ class Ball extends CircleComponent {
     super.update(dt);
     // Move horizontally based on gyroscope
     position.x += velocity.x * dt;
-
+    // move down based on gravity
     position.y += velocity.y * dt;
   }
 }

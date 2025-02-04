@@ -38,7 +38,7 @@ class Krabalo extends FlameGame {
     // Set up gyroscope listener
     gyroSubscription = gyroscopeEventStream().listen((GyroscopeEvent event) {
       ball.velocity.x =
-          -event.z * width * 0.5; // Horizontal velocity from gyroscope
+          -event.z * width * sensitivity; // Horizontal velocity from gyroscope
       ball.velocity.y = height * 0.2;
     });
 
