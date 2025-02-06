@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -7,7 +8,7 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'components/components.dart';
 import 'config.dart';
 
-class Krabalo extends FlameGame {
+class Krabalo extends FlameGame with HasCollisionDetection {
   Krabalo()
       : super(
           camera: CameraComponent.withFixedResolution(
@@ -18,6 +19,7 @@ class Krabalo extends FlameGame {
 
   StreamSubscription<GyroscopeEvent>? gyroSubscription;
   late Ball ball;
+  double tiltAngle = 0; // To store cumulative tilt based on gyroscope
   double get width => size.x;
   double get height => size.y;
 
@@ -37,9 +39,14 @@ class Krabalo extends FlameGame {
 
     // Set up gyroscope listener
     gyroSubscription = gyroscopeEventStream().listen((GyroscopeEvent event) {
-      ball.velocity.x =
-          -event.z * width * sensitivity; // Horizontal velocity from gyroscope
-      ball.velocity.y = height * 0.2;
+      // Calculate angular change over time (assuming `dt` is roughly 1/60th second)
+      const double dt = 1 / 60;
+      // Accumulate the tilt angle based on the angular velocity from the gyroscope
+      tiltAngle += event.z * dt;
+
+      // Apply physics-based velocity from the tilt angle
+      ball.velocity.x = -sensitivity *
+          sin(tiltAngle); // Horizontal velocity from gyroscope
     });
 
     world.add(ball);
